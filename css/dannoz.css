@@ -7,6 +7,8 @@ body {
    padding-top: 50px;
 }
 
+.container .row { padding-top: 30px; }
+
 .dans-hero-unit {
 	background-color: rgba(0,0,0,0.3);
 	color: #FFF;
