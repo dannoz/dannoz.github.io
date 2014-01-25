@@ -1,3 +1,10 @@
+
+/*Importing custom fonts*/
+@import url(http://thecodeplayer.com/uploads/fonts/fontawesome/css/font-awesome.min.css);
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+
+
+
 body {
 	background:#000 url('../img/dannozbg.jpg') center center no-repeat fixed;
 	-webkit-background-size: cover;
@@ -9,11 +16,90 @@ body {
 
 .container .row { padding-top: 30px; }
 
+
+.icons {
+	width: 250px;
+	margin: 0;
+}
+.icons i {
+	display: block;
+	font-size: 24px;
+	line-height: 50px; width: 50px;
+	text-align: center;
+}
+.icons a {
+	text-decoration: none;
+	color: white;
+	display: inline-block;
+	margin: 10px;
+	border-radius: 12px;
+	position: relative;
+}
+/*Now we will create fish-eye shapes using pseudo elements and clip them to add a curve to the sides of the icons*/
+.icons a:before, .icons a:after {
+	content: '';
+	position: absolute; left: 0; top: 0;
+	width: 100%; height: 100%;
+	background: inherit;
+	border-radius: 100%; /*circle*/
+	/*time to transform the circle into fish-eye shape. iOS7 style now.*/
+	transform: scaleX(2) scaleY(1.05);
+	/*clipping the left and right sides - 17px from the left and right*/
+	clip: rect(0, 33px, 50px, 17px);
+	/*pushing it behind the icon*/
+	z-index: -1;
+}
+/*duplicating the :before element and rotating it 90deg and swapping the X/Y transforms*/
+.icons a:after {
+	transform: scaleY(2) scaleX(1.05) rotate(90deg);
+}
+/*colors*/
+.tw {background: #00ACF0;}
+.fb {background: #3B5997;}
+.gp {background: #DB4F48;}
+.ig {background: #447397;}
+.li {background: #007DB8;}
+.yt {background: #D12E2E;}
+
+.clip-circle
+{
+  background:url(URL-of-image) no-repeat;
+
+  height:120px;
+  width:120px;
+  border-radius:50%;
+  overflow:hidden;
+  margin:auto;
+}
+
+.box {
+	color: #FFF;
+	font-size: 54pt;
+	font-family: 'Freckle Face', cursive;
+    float: left;
+    width: 140px;
+}
+
+.box2 {
+	color: #FFF;
+	font-size: 54pt;
+	font-family: 'Freckle Face', cursive;
+    float: left;
+    width: 300px;
+}
 .dans-hero-unit {
 	background-color: rgba(0,0,0,0.3);
 	color: #FFF;
 	padding: 30px;
 	box-shadow: 0 0 15px rgba(0,0,0,0.25);
+}
+
+.dans-hero-unit h3 {
+    float: left;
+    width: 200px;
+    margin-top: 10px;
+
+    border: 2px solid blue;
 }
 
 .dans-hero-unit h1 {
