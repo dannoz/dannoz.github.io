@@ -14,6 +14,20 @@ body {
    padding-top: 50px;
 }
 
+#test1{
+	position: relative;
+		width: 100px;
+			height: 100px;
+}
+#test2{
+	position: relative;
+	left: 100px;
+	width: 100px;
+			height: 100px;
+}
+
+
+
 .container .row { padding-top: 30px; }
 
 
@@ -76,17 +90,18 @@ body {
 	color: #FFF;
 	font-size: 54pt;
 	font-family: 'Freckle Face', cursive;
-    float: left;
-    width: 140px;
+
 }
 
-.box2 {
-	color: #FFF;
-	font-size: 54pt;
-	font-family: 'Freckle Face', cursive;
-    float: left;
+#box_1{
+	float: left;
+    width: 140px;
+}
+#box_2{
+	float: left;
     width: 300px;
 }
+
 .dans-hero-unit {
 	background-color: rgba(0,0,0,0.3);
 	color: #FFF;
