@@ -20,6 +20,7 @@ body {
 			height: 100px;
 }
 #test2{
+	display: inline;
 	position: relative;
 	left: 100px;
 	width: 100px;
@@ -90,14 +91,13 @@ body {
 	color: #FFF;
 	font-size: 54pt;
 	font-family: 'Freckle Face', cursive;
-
 }
 
-#box_1{
+.box_1{
 	float: left;
     width: 140px;
 }
-#box_2{
+.box_2{
 	float: left;
     width: 300px;
 }
