@@ -1,0 +1,33 @@
+#header{
+    position:fixed;
+    z-index:1;
+    width:100%;
+    background-color:grey;
+    height:50px;
+    border-radius:5px;
+    margin-bottom: 50px;
+}
+.left{
+	position: relative;
+    float:left;
+    width:20%;
+    background-color:lightblue;
+    height:1250px;
+    border-radius:5px;
+}
+.right{
+	position: relative;
+    float:right;
+    width:80%;
+    background-color:lightgrey;
+    height:1250px;
+    border-radius:5px;
+}
+#footer{
+    clear:both;
+
+    width:100%;
+    background-color:red;
+    height:20px;
+    border-radius:5px;
+}
