@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Dan Noz">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>RunMap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="style/runmaps.css" rel="stylesheet">
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIvFg2VjwXpXedoV8WgapqDZtB4v3HLX8">
+    </script>
+    <script type="text/javascript" src="js/gmap.js"></script>
+    <script type="text/javascript" src="rundata/rundata1.js"></script>
+
+
+        <script src="bower_components/react/react.js"></script>
+        <script src="bower_components/react/JSXTransformer.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <h3>RunMapLogo</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>your runs on a map</h1>
+      </div>
+
+      <div class="row">
+      <div class="col-lg-12">
+      <div id="map-canvas">map placeholder</div>
+      </div>
+      </div>
+
+      <div class="jumbotron">
+          <div id="search">
+
+        <script type="text/jsx">
+        /** @jsx React.DOM */
+
+        var EpisodeRow = React.createClass({
+            getInitialState: function() {
+                return {
+                    viewed: false
+                };
+            },
+            handleClick: function(){
+              this.setState({viewed: true});
+              moveMarker();
+              addRoute(waypoints1);
+
+            },
+            render: function() {
+                return (
+                    <tr>
+                        <td>{this.props.episode.title}</td>
+                        <td><a  onClick={this.handleClick}>view {this.state.viewed ? '(viewed)' : ''}</a></td>
+                    </tr>
+                );
+            }
+        });
+
+        var EpisodeTable = React.createClass({
+            render: function() {
+              var props = this.props;
+              var rows = props.episodes
+                .filter(function(episode){
+                  return episode.title.toLowerCase().indexOf(props.filterText.toLowerCase()) > -1;
+                })
+                .map(function(episode){
+                  return <EpisodeRow key={episode.title} episode={episode} />;
+                });
+
+
+              return (
+                  <div className="row spacer">
+                    <div className="col-lg-4 col-lg-offset-4">
+                      <table width="100%">
+                          <thead>
+                              <tr>
+                                  <th>Title</th>
+                                  <th>Link</th>
+                              </tr>
+                          </thead>
+                          <tbody>{rows}</tbody>
+                      </table>
+                    </div>
+                  </div>
+              );
+            }
+        });
+
+        var SearchBar = React.createClass({
+            handleChange: function() {
+                this.props.onUserInput(
+                    this.refs.filterTextInput.getDOMNode().value
+                );
+            },
+            render: function() {
+                return (
+                    <div className="row spacer">
+                      <div className="col-lg-4 col-lg-offset-4">
+                        <form onSubmit={this.handleSubmit}>
+                          <input ref="filterTextInput" value={this.props.filterText} onChange={this.handleChange} type="search" className="form-control" placeholder="Search for episode" />
+                        </form>
+                      </div>
+                    </div>
+                );
+            }
+        });
+
+        var FilterableEpisodeTable = React.createClass({
+            getInitialState: function() {
+                return {
+                    filterText: ''
+                };
+            },
+
+            handleUserInput: function(filterText) {
+                this.setState({
+                    filterText: filterText
+                });
+            },
+
+            render: function() {
+                return (
+                    <div className="spacer">
+                        <SearchBar onUserInput={this.handleUserInput} filterText={this.state.filterText} />
+                        <EpisodeTable filterText={this.state.filterText} episodes={this.props.episodes} />
+                    </div>
+                );
+            }
+        });
+
+        var episodes = [{
+              title : "Angular with Yeoman",
+          },{
+              title : "Using D3 with Rickshaw and Angular",
+          },{
+              title : "Canvas with paper.js",
+          },{
+              title : "Express.js middleware",
+          }
+        ];
+
+        React.renderComponent(<FilterableEpisodeTable episodes={episodes} />, document.getElementById('search'));
+
+        </script>
+        <!-- end search div -->
+        </div>
+
+
+
+
+      </div>
+
+
+
+      <div class="footer">
+        <p>&copy; Dan Noz 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  </body>
+</html>
