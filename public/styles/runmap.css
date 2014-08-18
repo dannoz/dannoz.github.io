@@ -78,6 +78,7 @@ a:hover{
     border-style: double;
     background-color: white;
     z-index:3;
+    padding-top: 10px;
 }
 
 .cover-div p {
