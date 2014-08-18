@@ -1,4 +1,6 @@
-var waypoints1 = [
+module.exports = [
+    { name: "run1", route:[
+
     {
       "latitude": 51.49119,
       "longitude": -0.256977,
@@ -24174,4 +24176,5 @@ var waypoints1 = [
       "longitude": -0.257929,
       "elevation": 9.394174
     }
+    ]}
   ];
