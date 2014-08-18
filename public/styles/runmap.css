@@ -68,16 +68,20 @@ a:hover{
   width:100%;
 }
 
-#cover-div {
+.cover-div {
     position:relative;
-    left:25%;
+    left:30%;
     bottom: 60px;
     height: 150px;
-    width:50%;
-    color:red;
-    border-style: dashed;
-    background-color: white
+    width:40%;
+    color:black;
+    border-style: double;
+    background-color: white;
     z-index:3;
+}
+
+.cover-div p {
+  text-align: center;
 }
 
 #search {

@@ -20,8 +20,8 @@ var App = React.createClass({
     return (
         <div>
         <div className="jumbotron"><FilterableRunTable rundata={rundata} onRunSelected={this.onRunSelected} /></div>
-          <GMap lat={this.state.lat} lng={this.state.lng} rundata={this.state.route}/>
-          
+        <GMap lat={this.state.lat} lng={this.state.lng} rundata={this.state.route}/>
+        <RunInfo rundata={this.state.route}/>
         </div> 
       );
   },
@@ -30,6 +30,28 @@ var App = React.createClass({
     this.setState({route: rundata[index]})
   }
 
+
+});
+
+var RunInfo =React.createClass({
+
+  render: function(){
+
+    var display = this.props.rundata;
+
+    return (
+        <div>
+        { display && <div className="cover-div">
+
+
+        <p>Distance: {this.props.rundata.distance}</p>
+        <p>Time: {this.props.rundata.time}</p>
+        <p>Average Pace: {this.props.rundata.avgpace}</p>
+        
+        </div>}
+        </div>
+      );
+  }
 
 });
 

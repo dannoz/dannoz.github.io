@@ -21,8 +21,8 @@ var App = React.createClass({displayName: 'App',
     return (
         React.DOM.div(null, 
         React.DOM.div({className: "jumbotron"}, FilterableRunTable({rundata: rundata, onRunSelected: this.onRunSelected})), 
-          GMap({lat: this.state.lat, lng: this.state.lng, rundata: this.state.route})
-          
+        GMap({lat: this.state.lat, lng: this.state.lng, rundata: this.state.route}), 
+        RunInfo({rundata: this.state.route})
         ) 
       );
   },
@@ -31,6 +31,28 @@ var App = React.createClass({displayName: 'App',
     this.setState({route: rundata[index]})
   }
 
+
+});
+
+var RunInfo =React.createClass({displayName: 'RunInfo',
+
+  render: function(){
+
+    var display = this.props.rundata;
+
+    return (
+        React.DOM.div(null, 
+         display && React.DOM.div({className: "cover-div"}, 
+
+
+        React.DOM.p(null, "Distance: ", this.props.rundata.distance), 
+        React.DOM.p(null, "Time: ", this.props.rundata.time), 
+        React.DOM.p(null, "Average Pace: ", this.props.rundata.avgpace)
+        
+        )
+        )
+      );
+  }
 
 });
 
