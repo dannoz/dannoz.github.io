@@ -68,6 +68,8 @@ var GMap = React.createClass({
       strokeWeight: 2
     });
 
+    this.map.setCenter(new google.maps.LatLng(route[0].latitude,route[0].longitude));
+    this.map.setZoom(12);
     this.runPath.setMap(this.map);
   },
 
@@ -185,7 +187,9 @@ var RunTable = React.createClass({
             props.onRunSelected(i);
 
           }
+          if(i<5){
           return <RunRow key={i} run={run} handleClick={handleClick}/>;
+          };
         });
 
 
