@@ -48,7 +48,7 @@ var RunInfo =React.createClass({displayName: 'RunInfo',
         React.DOM.p(null, "Distance: ", this.props.rundata.distance), 
         React.DOM.p(null, "Time: ", this.props.rundata.time), 
         React.DOM.p(null, "Average Pace: ", this.props.rundata.avgpace)
-        
+
         )
         )
       );
@@ -104,13 +104,15 @@ var GMap = React.createClass({displayName: 'GMap',
   },
   //TODO if runpath exists, remove it
   clearRoute: function(){
-
+    this.runPath.setMap(null);
   },
 
   componentDidUpdate: function(){
 
-    this.clearRoute();
-
+    if(this.runPath){
+      this.clearRoute();
+    }
+    
     this.map.setCenter(new google.maps.LatLng(this.props.lat, this.props.lng));
 
     if (this.props.rundata){

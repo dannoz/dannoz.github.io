@@ -47,7 +47,7 @@ var RunInfo =React.createClass({
         <p>Distance: {this.props.rundata.distance}</p>
         <p>Time: {this.props.rundata.time}</p>
         <p>Average Pace: {this.props.rundata.avgpace}</p>
-        
+
         </div>}
         </div>
       );
@@ -103,12 +103,14 @@ var GMap = React.createClass({
   },
   //TODO if runpath exists, remove it
   clearRoute: function(){
-
+    this.runPath.setMap(null);
   },
 
   componentDidUpdate: function(){
 
-    this.clearRoute();
+    if(this.runPath){
+      this.clearRoute();
+    }
 
     this.map.setCenter(new google.maps.LatLng(this.props.lat, this.props.lng));
 
@@ -237,9 +239,16 @@ var RunTable = React.createClass({
 var RunRow = React.createClass({
     getInitialState: function() {
         return {
-            viewed: false
+            viewed: false,
         };
     },
+
+    componentDidUpdate: function(){
+
+    },
+
+
+
     handleClick: function(){
       this.setState({viewed: true});
       this.props.handleClick();
@@ -248,7 +257,7 @@ var RunRow = React.createClass({
         return (
             <tr>
                 <td>{this.props.run.name}</td>
-                <td><a  onClick={this.handleClick}>view {this.state.viewed ? '(viewed)' : ''}</a></td>
+                <td><a onClick={this.handleClick}>view {this.state.viewed ? '(viewed)' : ''}</a></td>
             </tr>
         );
     }
