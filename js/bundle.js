@@ -12,7 +12,8 @@ var App = React.createClass({displayName: 'App',
         return {
             lat: 51.49119,
             lng: -0.256977,
-            route: null
+            route: null,
+            routeIndexViewing: null
         };
   },
 
@@ -20,7 +21,7 @@ var App = React.createClass({displayName: 'App',
 
     return (
         React.DOM.div(null, 
-        React.DOM.div({className: "jumbotron"}, FilterableRunTable({rundata: rundata, onRunSelected: this.onRunSelected})), 
+        React.DOM.div({className: "jumbotron"}, FilterableRunTable({rundata: rundata, onRunSelected: this.onRunSelected, routeIndexViewing: this.state.routeIndexViewing})), 
         GMap({lat: this.state.lat, lng: this.state.lng, rundata: this.state.route}), 
         RunInfo({rundata: this.state.route})
         ) 
@@ -28,7 +29,7 @@ var App = React.createClass({displayName: 'App',
   },
 
   onRunSelected: function(index){
-    this.setState({route: rundata[index]})
+    this.setState({route: rundata[index], routeIndexViewing: index});
   }
 
 
@@ -112,7 +113,7 @@ var GMap = React.createClass({displayName: 'GMap',
     if(this.runPath){
       this.clearRoute();
     }
-    
+
     this.map.setCenter(new google.maps.LatLng(this.props.lat, this.props.lng));
 
     if (this.props.rundata){
@@ -172,7 +173,7 @@ var FilterableRunTable = React.createClass({displayName: 'FilterableRunTable',
         return (
             React.DOM.div({className: "spacer"}, 
                 SearchBar({onUserInput: this.handleUserInput, filterText: this.state.filterText}), 
-                RunTable({filterText: this.state.filterText, runs: this.props.rundata, onRunSelected: this.props.onRunSelected})
+                RunTable({filterText: this.state.filterText, runs: this.props.rundata, onRunSelected: this.props.onRunSelected, routeIndexViewing: this.props.routeIndexViewing})
             )
         );
     }
@@ -213,7 +214,7 @@ var RunTable = React.createClass({displayName: 'RunTable',
 
           }
           if(i<5){
-          return RunRow({key: i, run: run, handleClick: handleClick});
+          return RunRow({key: i, run: run, handleClick: handleClick, routeIndexViewing: props.routeIndexViewing});
           };
         });
 
@@ -238,20 +239,18 @@ var RunTable = React.createClass({displayName: 'RunTable',
 
 
 var RunRow = React.createClass({displayName: 'RunRow',
-    getInitialState: function() {
-        return {
-            viewed: false
-        };
-    },
+
+
     handleClick: function(){
-      this.setState({viewed: true});
+      //this.setState({viewed: true});
+      this.props.routeIndexViewing=this.props.key;
       this.props.handleClick();
     },
     render: function() {
         return (
             React.DOM.tr(null, 
                 React.DOM.td(null, this.props.run.name), 
-                React.DOM.td(null, React.DOM.a({onClick: this.handleClick}, "view ", this.state.viewed ? '(viewed)' : ''))
+                React.DOM.td(null, React.DOM.a({onClick: this.handleClick}, (this.props.routeIndexViewing==this.props.key) ? '(viewing)' : 'view'))
             )
         );
     }

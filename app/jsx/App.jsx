@@ -11,7 +11,8 @@ var App = React.createClass({
         return {
             lat: 51.49119,
             lng: -0.256977,
-            route: null
+            route: null,
+            routeIndexViewing: null
         };
   },
 
@@ -19,7 +20,7 @@ var App = React.createClass({
 
     return (
         <div>
-        <div className="jumbotron"><FilterableRunTable rundata={rundata} onRunSelected={this.onRunSelected} /></div>
+        <div className="jumbotron"><FilterableRunTable rundata={rundata} onRunSelected={this.onRunSelected} routeIndexViewing={this.state.routeIndexViewing} /></div>
         <GMap lat={this.state.lat} lng={this.state.lng} rundata={this.state.route}/>
         <RunInfo rundata={this.state.route}/>
         </div> 
@@ -27,7 +28,7 @@ var App = React.createClass({
   },
 
   onRunSelected: function(index){
-    this.setState({route: rundata[index]})
+    this.setState({route: rundata[index], routeIndexViewing: index});
   }
 
 
@@ -171,7 +172,7 @@ var FilterableRunTable = React.createClass({
         return (
             <div className="spacer">
                 <SearchBar onUserInput={this.handleUserInput} filterText={this.state.filterText} />
-                <RunTable filterText={this.state.filterText} runs={this.props.rundata} onRunSelected={this.props.onRunSelected}/>
+                <RunTable filterText={this.state.filterText} runs={this.props.rundata} onRunSelected={this.props.onRunSelected} routeIndexViewing={this.props.routeIndexViewing} />
             </div>
         );
     }
@@ -212,7 +213,7 @@ var RunTable = React.createClass({
 
           }
           if(i<5){
-          return <RunRow key={i} run={run} handleClick={handleClick}/>;
+          return <RunRow key={i} run={run} handleClick={handleClick} routeIndexViewing={props.routeIndexViewing} />;
           };
         });
 
@@ -237,27 +238,18 @@ var RunTable = React.createClass({
 
 
 var RunRow = React.createClass({
-    getInitialState: function() {
-        return {
-            viewed: false,
-        };
-    },
-
-    componentDidUpdate: function(){
-
-    },
-
 
 
     handleClick: function(){
-      this.setState({viewed: true});
+      //this.setState({viewed: true});
+      this.props.routeIndexViewing=this.props.key;
       this.props.handleClick();
     },
     render: function() {
         return (
             <tr>
                 <td>{this.props.run.name}</td>
-                <td><a onClick={this.handleClick}>view {this.state.viewed ? '(viewed)' : ''}</a></td>
+                <td><a onClick={this.handleClick}>{(this.props.routeIndexViewing==this.props.key) ? '(viewing)' : 'view'}</a></td>
             </tr>
         );
     }
